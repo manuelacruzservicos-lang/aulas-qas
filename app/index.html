@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Plataforma QAS Interativa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .active {
+      background-color: black;
+      color: white;
+    }
+    .card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    #chatBox {
+      border: 1px solid #ccc;
+      height: 250px;
+      overflow-y: auto;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .user {
+      background: #dbeafe;
+      padding: 8px;
+      margin: 5px;
+      border-radius: 5px;
+      text-align: right;
+    }
+    .bot {
+      background: #f3f4f6;
+      padding: 8px;
+      margin: 5px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Plataforma QAS</h1>
+
+<!-- MENU -->
+<div>
+  <button onclick="setSection('home')">Home</button>
+  <button onclick="setSection('qualidade')">Qualidade</button>
+  <button onclick="setSection('ambiente')">Ambiente</button>
+  <button onclick="setSection('seguranca')">Segurança</button>
+</div>
+
+<!-- CONTEÚDO -->
+<div id="content" class="card"></div>
+
+<!-- CHAT -->
+<div class="card">
+  <h3>Chat Formadora Virtual</h3>
+  <div id="chatBox"></div>
+  <input id="input" placeholder="Escreve a tua pergunta..." style="width:70%">
+  <button onclick="sendMessage()">Enviar</button>
+</div>
+
+<script>
+let section = "home";
+
+function setSection(sec) {
+  section = sec;
+  renderContent();
+}
+
+function renderContent() {
+  const content = document.getElementById("content");
+
+  if (section === "qualidade") {
+    content.innerHTML = `
+      <h2>Qualidade</h2>
+      <p>Gestão da qualidade baseada na ISO 9001.</p>
+      <ul>
+        <li>Foco no cliente</li>
+        <li>Melhoria contínua</li>
+        <li>Gestão por processos</li>
+      </ul>
+    `;
+  } else if (section === "ambiente") {
+    content.innerHTML = `
+      <h2>Ambiente</h2>
+      <p>Gestão ambiental baseada na ISO 14001.</p>
+      <ul>
+        <li>Identificação de impactos</li>
+        <li>Conformidade legal</li>
+        <li>Sustentabilidade</li>
+      </ul>
+    `;
+  } else if (section === "seguranca") {
+    content.innerHTML = `
+      <h2>Segurança</h2>
+      <p>Gestão de segurança e saúde no trabalho.</p>
+      <ul>
+        <li>Identificação de riscos</li>
+        <li>Prevenção de acidentes</li>
+        <li>Formação e cultura de segurança</li>
+      </ul>
+    `;
+  } else {
+    content.innerHTML = `
+      <h2>Plataforma QAS</h2>
+      <p>Escolha um módulo ou utilize o chatbot para aprender.</p>
+    `;
+  }
+}
+
+function sendMessage() {
+  const input = document.getElementById("input");
+  const chatBox = document.getElementById("chatBox");
+
+  if (!input.value) return;
+
+  const userMsg = `<div class="user">${input.value}</div>`;
+  chatBox.innerHTML += userMsg;
+
+  // Simulação de resposta
+  const botResponse = `
+    <div class="bot">
+      Vamos estruturar a sua questão:<br><br>
+      1. Definição: ${input.value} está relacionado com sistemas de gestão.<br>
+      2. Estrutura: Identificar processos, riscos e melhoria.<br>
+      3. Exemplo: Aplicação prática numa empresa.<br><br>
+      👉 Agora pense: como aplicaria isto num caso real?
+    </div>
+  `;
+
+  setTimeout(() => {
+    chatBox.innerHTML += botResponse;
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }, 500);
+
+  input.value = "";
+}
+
+// inicializar
+renderContent();
+</script>
+
+</body>
+</html>
